@@ -2,4 +2,4 @@ put eclipse paho mqtt jar into apache-jmeter-2.12/lib (http://repo.eclipse.org/c
 
 compile and put MQTT plugin into apache-jmeter-2.12/lib/ext/
 
-Then run
+There is a sample template
