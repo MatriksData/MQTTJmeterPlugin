@@ -1,16 +1,8 @@
 <project name="mqtt-jmeter"
          basedir="."
-         default="build"
-         xmlns:ivy="antlib:org.apache.ivy.ant">
+         default="build">
 
     <property file="build.properties"/>
-
-    <ivy:settings file="${user.home}/.ivy2/ivysettings.xml"/>
-
-    <target name="resolve">
-        <ivy:retrieve pattern="${lib.dir}/[conf]/[artifact]-[revision].[ext]"/>
-        <ivy:resolve/>
-    </target>
 
     <target name="clean">
         <delete dir="${classes.dir}/com"/>
@@ -23,7 +15,7 @@
                target="1.7" debug="yes">
             <classpath>
                 <path>
-                    <fileset dir="lib/compile/"/>
+                    <fileset dir="lib/"/>
                 </path>
             </classpath>
         </javac>
@@ -33,15 +25,8 @@
 
     <target name="pack">
         <mkdir dir="${dist.dir}"/>
-        <jar destfile="${dist.dir}/${jar.file}" >
-            <fileset dir="${classes.dir}" includes="*/**" />
+        <jar destfile="${dist.dir}/${jar.file}">
+            <fileset dir="${classes.dir}" includes="*/**"/>
         </jar>
-    </target>
-
-    <target name="publish-snapshot" depends="resolve,build">
-        <ivy:publish resolver="artifactory-snapshots" pubrevision="${revision}" overwrite="true">
-            <ivy:artifacts pattern="${dist.dir}/[artifact].[ext]"/>
-        </ivy:publish>
-
     </target>
 </project>
